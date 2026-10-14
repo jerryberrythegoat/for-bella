@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffdce8">
+<title>for bella ♡</title>
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --pink: #e879a1;
+    --deep: #77334f;
+    --soft: #fff7fa;
+    --line: #f4c3d5;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 22px;
+    display: grid;
+    place-items: center;
+    overflow-x: hidden;
+    background: linear-gradient(145deg, #ffeaf1, #ffc9dc 55%, #fff1f6);
+    color: var(--deep);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .heart-float {
+    position: fixed;
+    bottom: -35px;
+    z-index: 0;
+    color: #e879a1;
+    opacity: .62;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+  }
+  @keyframes floatUp {
+    from { transform: translateY(0) rotate(0); opacity: .65; }
+    to { transform: translateY(-115vh) rotate(28deg); opacity: 0; }
+  }
+  .card {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 440px);
+    padding: 30px 24px;
+    border: 1px solid #ffffffd9;
+    border-radius: 24px;
+    background: rgba(255, 249, 251, .94);
+    box-shadow: 0 18px 55px #a9426d20;
+    text-align: center;
+    animation: appear .8s ease both;
+  }
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(14px) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .eyebrow {
+    color: #bd6888;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font: 11px/1.6 Arial, sans-serif;
+  }
+  h1 {
+    margin: 16px 0;
+    font-weight: normal;
+    font-size: clamp(29px, 8vw, 38px);
+    line-height: 1.2;
+  }
+  p { line-height: 1.8; }
+  .envelope {
+    display: block;
+    margin: 16px auto 8px;
+    padding: 8px;
+    border: 0;
+    background: transparent;
+    font-size: 100px;
+    cursor: pointer;
+    animation: sway 3s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  button {
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .primary, .choice {
+    border: 0;
+    border-radius: 999px;
+    padding: 14px 20px;
+    cursor: pointer;
+    background: var(--pink);
+    color: white;
+    box-shadow: 0 5px 15px #c65a8528;
+    transition: transform .2s, background .2s;
+  }
+  .primary:hover, .choice:hover {
+    transform: translateY(-2px);
+    background: #d9618e;
+  }
+  .letter {
+    margin: 24px 0 18px;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.9;
+    white-space: pre-line;
+  }
+  .signature {
+    margin-top: 24px;
+    text-align: right;
+    font-size: 19px;
+    font-style: italic;
+  }
+  .hidden { display: none !important; }
+  .tap-note, .small {
+    color: #a66a83;
+    font: 12px/1.7 Arial, sans-serif;
+  }
+  .tap-note { margin-top: 24px; }
+  .question-intro {
+    margin: 8px 0 12px;
+    font-size: 25px;
+    font-style: italic;
+  }
+  .question-title { margin-top: 0; }
+  .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .choice { font-size: 16px; }
+  .heart-frame {
+    width: 170px;
+    height: 150px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    margin: 0 auto 14px;
+    color: #e879a1;
+  }
+  .heart-frame svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    overflow: visible;
+  }
+  .heart-frame .heart-label {
+    position: relative;
+    z-index: 1;
+    font-size: 18px;
+    line-height: 1.3;
+    padding: 0 8px;
+  }
+  .ending-message { line-height: 1.9; }
+  .signature-end { margin-top: 26px; font-style: italic; }
+  .sad-heart { font-size: 58px; margin: 10px 0; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="card" aria-live="polite">
+  <section id="intro">
+    <div class="eyebrow">something from my heart</div>
+    <h1>for bella 🤍</h1>
+    <p>there's something i've been wanting to tell you...</p>
+    <button class="envelope" id="openEnvelope" aria-label="Open the letter">💌</button>
+    <button class="primary" id="openLetter">open your letter ♡</button>
+    <p class="tap-note">a little something, just for you.</p>
+  </section>
+
+  <section id="letterScreen" class="hidden">
+    <div class="eyebrow">a letter for you</div>
+    <h1>Dear Bella,</h1>
+    <div class="letter" id="letterText"></div>
+    <p class="tap-note">tap to continue ♡</p>
+    <button class="primary" id="continueQuestion">continue ♡</button>
+  </section>
+
+  <section id="questionScreen" class="hidden">
+    <p class="question-intro">So..</p>
+    <h1 class="question-title">Will you be my girlfriend? ♡</h1>
+    <div class="choices">
+      <button class="choice" id="yesButton">of course!! 🤍</button>
+      <button class="choice" id="noButton">no of course not!</button>
+    </div>
+  </section>
+
+  <section id="yesScreen" class="hidden">
+    <div class="heart-frame" aria-label="You said yes">
+      <svg viewBox="0 0 180 160" aria-hidden="true">
+        <path d="M90 145 C75 128 13 87 13 48 C13 9 60 2 90 39 C120 2 167 9 167 48 C167 87 105 128 90 145Z"
+          fill="none" stroke="#ef9bb8" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+      <div class="heart-label">you said yes! ♡</div>
+    </div>
+    <p class="ending-message">im so happy you said yes, bella! you mean so much to me and im so glad you’re in my life.</p>
+    <p class="ending-message">I can’t wait to make more memories ahead, no matter the distance</p>
+    <p class="signature-end">-jerrio <span aria-label="heart">♡</span></p>
+  </section>
+
+  <section id="noScreen" class="hidden">
+    <div class="sad-heart">♡</div>
+    <h1>im so bummed</h1>
+    <p>but thank you for being honest with me, bella 🤍</p>
+    <p class="small">you still mean a lot to me.</p>
+  </section>
+</main>
+
+<script>
+  // Edit your letter here whenever you want.
+  const letter = `you make me feel so complete in so many different ways, i wasn’t even sure that i could feel these types of emotions, and yet you showed me i can. i think of you like an angel, yk? you’re so sweet and kind and im so shocked at how someone can be so perfect. you’ve become so special to me, and i want to be serious..`;
+
+  document.getElementById("letterText").textContent = letter;
+
+  const screens = ["intro", "letterScreen", "questionScreen", "yesScreen", "noScreen"];
+  function showScreen(id) {
+    screens.forEach(screen => document.getElementById(screen).classList.add("hidden"));
+    const next = document.getElementById(id);
+    next.classList.remove("hidden");
+    next.style.animation = "none";
+    void next.offsetWidth;
+    next.style.animation = "appear .75s ease both";
+  }
+
+  document.getElementById("openEnvelope").addEventListener("click", () => showScreen("letterScreen"));
+  document.getElementById("openLetter").addEventListener("click", () => showScreen("letterScreen"));
+  document.getElementById("continueQuestion").addEventListener("click", () => showScreen("questionScreen"));
+  document.getElementById("yesButton").addEventListener("click", () => showScreen("yesScreen"));
+  document.getElementById("noButton").addEventListener("click", () => showScreen("noScreen"));
+
+  // Floating hearts drift up in the background.
+  const symbols = ["♡", "♥", "୨୧"];
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement("span");
+    heart.className = "heart-float";
+    heart.textContent = symbols[i % symbols.length];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDelay = (Math.random() * 9) + "s";
+    heart.style.animationDuration = (7 + Math.random() * 6) + "s";
+    heart.style.fontSize = (12 + Math.random() * 17) + "px";
+    document.body.appendChild(heart);
+  }
+</script>
+</body>
+</html>
